@@ -1,2 +1,2 @@
-# DevOps_with_Kubernetes
+# DevOps with Kubernetes
 Repository for DevOps with Kubernetes course
