@@ -5,11 +5,12 @@ WORKDIR /app
 # Install Flask
 RUN pip install flask
 
-# Copy the application files
-COPY app.py /app
+# Copy the Python scripts into the container
+COPY writer.py /app/writer.py
+COPY reader.py /app/reader.py
 
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Start the application
-CMD ["python", "app.py"]
+CMD ["python", "writer.py"]

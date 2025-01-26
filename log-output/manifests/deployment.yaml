@@ -1,20 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stringenerator-dep
+  name: log-output-dep
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: stringenerator
+      app: log-output
   template:
     metadata:
       labels:
-        app: stringenerator
+        app: log-output
     spec:
+      volumes:
+      - name: log-data
+        emptyDir: {}
       containers:
-        - name: stringenerator
-          image: aapolaivm/log-output:v1.4
-          ports: 
-            - containerPort: 3000
-        
+      - name: writer
+        image: aapolaivm/log-output:v2.2
+        command: [ "python", "/app/writer.py" ]
+        volumeMounts:
+        - mountPath: /usr/src/app/files
+          name: log-data
+      - name: reader
+        image: aapolaivm/log-output:v2.2  
+        command: [ "python", "/app/reader.py" ]
+        volumeMounts:
+        - mountPath: /usr/src/app/files
+          name: log-data
+      

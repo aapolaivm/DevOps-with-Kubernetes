@@ -1,10 +1,10 @@
 .
-├── ingress.yaml
 ├── log-output
 │   ├── app.py
 │   ├── Dockerfile
 │   └── manifests
 │       ├── deployment.yaml
+│       ├── ingress.yaml
 │       └── service.yaml
 ├── ping-pong
 │   ├── Dockerfile
@@ -15,7 +15,7 @@
 ├── Project
 │   ├── Dockerfile
 │   ├── manifests
-│   │   ├── deploymnet.yaml
+│   │   ├── deployment.yaml
 │   │   ├── ingress.yaml
 │   │   └── service.yaml
 │   └── server.py

@@ -10,7 +10,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: stringenerator-svc   # Pointing to the log-output service
+            name: log-output-svc   # Pointing to the log-output service
             port:
               number: 2345
       - path: /pingpong
