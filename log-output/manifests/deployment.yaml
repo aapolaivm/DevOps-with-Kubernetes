@@ -14,5 +14,7 @@ spec:
     spec:
       containers:
         - name: stringenerator
-          image: aapolaivm/log-output:v1.0
+          image: aapolaivm/log-output:v1.4
+          ports: 
+            - containerPort: 3000
         
