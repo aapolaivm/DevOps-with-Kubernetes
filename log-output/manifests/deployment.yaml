@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stringenerator-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stringenerator
+  template:
+    metadata:
+      labels:
+        app: stringenerator
+    spec:
+      containers:
+        - name: stringenerator
+          image: aapolaivm/log-output:v1.0
+        
