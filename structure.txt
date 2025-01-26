@@ -1,0 +1,25 @@
+.
+├── ingress.yaml
+├── log-output
+│   ├── app.py
+│   ├── Dockerfile
+│   └── manifests
+│       ├── deployment.yaml
+│       └── service.yaml
+├── ping-pong
+│   ├── Dockerfile
+│   ├── manifests
+│   │   ├── deployment.yaml
+│   │   └── service.yaml
+│   └── pingpong.py
+├── Project
+│   ├── Dockerfile
+│   ├── manifests
+│   │   ├── deploymnet.yaml
+│   │   ├── ingress.yaml
+│   │   └── service.yaml
+│   └── server.py
+├── README.md
+└── structure.txt
+
+7 directories, 16 files
