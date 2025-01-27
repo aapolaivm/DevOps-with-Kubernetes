@@ -16,16 +16,23 @@ spec:
       - name: log-data
         emptyDir: {}
       containers:
-      - name: writer
-        image: aapolaivm/log-output:v2.2
-        command: [ "python", "/app/writer.py" ]
-        volumeMounts:
-        - mountPath: /usr/src/app/files
-          name: log-data
-      - name: reader
-        image: aapolaivm/log-output:v2.2  
-        command: [ "python", "/app/reader.py" ]
-        volumeMounts:
-        - mountPath: /usr/src/app/files
-          name: log-data
-      
+        - name: writer
+          image: aapolaivm/log-output:v2.6
+          command: [ "python", "/app/writer.py" ]
+          volumeMounts:
+          - mountPath: /usr/src/app/files
+            name: log-data
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+        - name: reader
+          image: aapolaivm/log-output:v2.6  
+          command: [ "python", "/app/reader.py" ]
+          volumeMounts:
+          - mountPath: /usr/src/app/files
+            name: log-data
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
