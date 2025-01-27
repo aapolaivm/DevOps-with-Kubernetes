@@ -13,25 +13,28 @@ spec:
         app: log-output
     spec:
       volumes:
-      - name: log-data
-        emptyDir: {}
+      - name: shared-volume
+        persistentVolumeClaim:
+          claimName: shared-pvc
       containers:
         - name: writer
-          image: aapolaivm/log-output:v2.6
+          image: aapolaivm/log-output:v3.0
           command: [ "python", "/app/writer.py" ]
           volumeMounts:
           - mountPath: /usr/src/app/files
-            name: log-data
+            name: shared-volume
           resources:
             limits:
               memory: "128Mi"
               cpu: "500m"
         - name: reader
-          image: aapolaivm/log-output:v2.6  
+          image: aapolaivm/log-output:v3.0  
           command: [ "python", "/app/reader.py" ]
+          ports:
+            - containerPort: 3000
           volumeMounts:
           - mountPath: /usr/src/app/files
-            name: log-data
+            name: shared-volume
           resources:
             limits:
               memory: "128Mi"

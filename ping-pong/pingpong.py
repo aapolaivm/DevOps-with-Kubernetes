@@ -9,6 +9,8 @@ counter = 0
 def pingpong():
     global counter
     counter += 1
+    with open('/usr/src/app/files/pingpong.txt', 'w') as f:
+        f.write(str(counter))
     return f"pong {counter}", 200
 
 if __name__ == '__main__':

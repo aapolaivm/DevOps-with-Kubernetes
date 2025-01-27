@@ -1,17 +1,21 @@
 .
 ├── log-output
-│   ├── app.py
 │   ├── Dockerfile
-│   └── manifests
-│       ├── deployment.yaml
-│       ├── ingress.yaml
-│       └── service.yaml
+│   ├── manifests
+│   │   ├── deployment.yaml
+│   │   ├── ingress.yaml
+│   │   └── service.yaml
+│   ├── reader.py
+│   └── writer.py
 ├── ping-pong
 │   ├── Dockerfile
 │   ├── manifests
 │   │   ├── deployment.yaml
 │   │   └── service.yaml
 │   └── pingpong.py
+├── presistent-volumes
+│   ├── persistentvolumeclaim.yaml
+│   └── persistentvolume.yaml
 ├── Project
 │   ├── Dockerfile
 │   ├── manifests
@@ -22,4 +26,4 @@
 ├── README.md
 └── structure.txt
 
-7 directories, 16 files
+8 directories, 19 files
