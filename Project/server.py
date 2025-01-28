@@ -18,7 +18,7 @@ def download_image():
             print(f"Failed to download image: {e}", flush=True)
         time.sleep(3600)  # Wait for 60 minutes
 
-@app.route('/')
+@app.route('/todo')
 def home():
     return """
     <!DOCTYPE html>
@@ -42,7 +42,7 @@ def home():
     </html>
     """
 
-@app.route('/image')
+@app.route('/todo/image')
 def image():
     # Serve the cached image with explicit caching headers
     response = make_response(send_file(IMAGE_PATH, mimetype='image/jpeg'))

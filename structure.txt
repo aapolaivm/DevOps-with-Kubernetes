@@ -21,9 +21,11 @@
 │   ├── manifests
 │   │   ├── deployment.yaml
 │   │   ├── ingress.yaml
+│   │   ├── presistentvolumeclaim.yaml
+│   │   ├── presistentvolume.yaml
 │   │   └── service.yaml
 │   └── server.py
 ├── README.md
 └── structure.txt
 
-8 directories, 19 files
+8 directories, 21 files

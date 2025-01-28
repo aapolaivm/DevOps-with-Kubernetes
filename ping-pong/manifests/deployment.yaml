@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: pingpong
-          image: aapolaivm/pingpong:v1.1
+          image: aapolaivm/pingpong:v2.0
           command: [ "python", "/app/pingpong.py" ]  
           ports:
             - containerPort: 3001

@@ -18,7 +18,7 @@ spec:
           claimName: shared-pvc
       containers:
         - name: writer
-          image: aapolaivm/log-output:v3.0
+          image: aapolaivm/log-output:v4.3
           command: [ "python", "/app/writer.py" ]
           volumeMounts:
           - mountPath: /usr/src/app/files
@@ -28,7 +28,7 @@ spec:
               memory: "128Mi"
               cpu: "500m"
         - name: reader
-          image: aapolaivm/log-output:v3.0  
+          image: aapolaivm/log-output:v4.3  
           command: [ "python", "/app/reader.py" ]
           ports:
             - containerPort: 3000
