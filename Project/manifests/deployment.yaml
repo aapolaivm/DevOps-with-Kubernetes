@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: todo-app
-        image: aapolaivm/todo-app:v0.62
+        image: aapolaivm/todo-app:v0.71
         ports: 
         - containerPort: 8080
         resources:

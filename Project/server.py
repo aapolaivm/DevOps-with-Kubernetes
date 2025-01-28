@@ -29,9 +29,15 @@ def home():
         <title>Todo App</title>
     </head>
     <body>
-        <h1>Welcome to the Todo App!</h1>
-        <p>This is a simple HTML response served by Flask.</p>
-        <img src="/image" alt="Random Image">
+        <img src="/image" alt="Random Image" style="width:300px;height:500px;">
+        <form>
+            <input type="text" id="todo" name="todo" maxlength="140">
+            <button type="button">Create TODO</button>
+        </form>
+        <ul>
+            <li>TODO 1</li>
+            <li>TODO 2</li>
+        </ul>
     </body>
     </html>
     """
