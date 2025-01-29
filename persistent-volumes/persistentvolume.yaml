@@ -10,3 +10,11 @@ spec:
     - ReadWriteOnce
   local:
     path: /tmp/kube
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - k3d-k3s-default-agent-0
