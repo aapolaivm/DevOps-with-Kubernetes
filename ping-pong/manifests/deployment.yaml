@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pingpong-dep
+  namespace: devops-exercises
   labels:
     app: pingpong
 spec:
@@ -16,8 +17,7 @@ spec:
     spec:
       containers:
         - name: pingpong
-          image: aapolaivm/pingpong:v2.0
-          command: [ "python", "/app/pingpong.py" ]  
+          image: aapolaivm/pingpong:v2.2
           ports:
             - containerPort: 3001
           volumeMounts:
