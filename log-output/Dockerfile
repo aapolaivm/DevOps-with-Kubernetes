@@ -13,4 +13,4 @@ COPY reader.py /app/reader.py
 EXPOSE 3000
 
 # Start the application
-CMD ["python", "writer.py"]
+CMD ["python", "reader.py"]

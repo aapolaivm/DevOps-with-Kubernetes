@@ -7,6 +7,6 @@ spec:
   selector:
     app: pingpong
   ports:
-  - port: 5001
-    targetPort: 5001
+  - port: 3001
+    targetPort: 3001
     protocol: TCP

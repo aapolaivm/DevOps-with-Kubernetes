@@ -17,19 +17,12 @@ spec:
     spec:
       containers:
         - name: pingpong
-          image: aapolaivm/pingpong:v2.2
+          image: aapolaivm/pingpong:v2.8
           ports:
             - containerPort: 3001
-          volumeMounts:
-          - mountPath: /usr/src/app/files
-            name: shared-volume
           resources:
             limits:
               memory: "128Mi"
               cpu: "500m"
-      volumes:
-      - name: shared-volume
-        persistentVolumeClaim:
-          claimName: shared-pvc
 
 
