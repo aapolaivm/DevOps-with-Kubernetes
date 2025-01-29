@@ -1,5 +1,5 @@
-from flask import Flask, jsonify, render_template_string, request
 import os
+from flask import Flask, jsonify, render_template_string, request
 import threading
 import time
 import urllib.request
@@ -8,9 +8,6 @@ import hashlib
 import logging
 
 app = Flask(__name__)
-
-# Configure logging
-logging.basicConfig(level=logging.DEBUG)
 
 hash_value = None
 timestamp_data = None
@@ -53,11 +50,15 @@ def get_status():
     """Endpoint to return the current hash value and pingpong count in HTML format"""
     # Call fetch_pingpong_count in the background to avoid blocking the request
     threading.Thread(target=fetch_pingpong_count, daemon=True).start()
-
     if hash_value and timestamp_data:
+        with open('/app/config/information.txt', 'r') as file:
+            file_content = file.read().strip()
+        message = os.getenv('MESSAGE', 'No message set')
         html_content = f"""
         <html>
             <body>
+                <p>file content: {file_content}</p>
+                <p>env variable: MESSAGE={message}</p>
                 <p>{timestamp_data}: {hash_value}.</p>
                 <p>Ping / Pongs: {pingpong_count}</p>
             </body>

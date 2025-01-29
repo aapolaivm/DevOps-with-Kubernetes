@@ -15,14 +15,24 @@ spec:
     spec:
       containers:
         - name: writer
-          image: aapolaivm/log-output:v4.12
+          image: aapolaivm/log-output:v5.0
           command: [ "python", "/app/writer.py" ]
           resources:
             limits:
               memory: "128Mi"
               cpu: "500m"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config/information.txt
+              subPath: information.txt
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-configmap
+                  key: MESSAGE
         - name: reader
-          image: aapolaivm/log-output:v4.12
+          image: aapolaivm/log-output:v5.0
           command: [ "python", "/app/reader.py" ]
           ports:
             - containerPort: 3000
@@ -30,3 +40,17 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config/information.txt
+              subPath: information.txt
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-configmap
+                  key: MESSAGE
+      volumes:
+        - name: config-volume
+          configMap:
+            name: log-output-configmap
