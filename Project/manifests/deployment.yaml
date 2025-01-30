@@ -15,9 +15,12 @@ spec:
     spec:
       containers:
       - name: todo-app
-        image: aapolaivm/todo-app:v1.1
+        image: aapolaivm/todo-app:v1.21
         ports: 
         - containerPort: 8080
+        env:
+        - name: PYTHONUNBUFFERED
+          value: "1"
         resources:
           limits:
             memory: "512Mi"

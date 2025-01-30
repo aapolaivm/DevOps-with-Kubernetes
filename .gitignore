@@ -1,0 +1,6 @@
+# Ignore unencrypted secrets
+todo-backend/manifests/postgres-secret.yaml
+ping-pong/manifests/pingpong-secret.yaml
+
+# Ignore age key
+todo-backend/age-key.txt

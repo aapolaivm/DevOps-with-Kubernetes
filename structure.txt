@@ -3,8 +3,10 @@
 ├── log-output
 │   ├── Dockerfile
 │   ├── manifests
+│   │   ├── configmap.yaml
 │   │   ├── deployment.yaml
 │   │   ├── ingress.yaml
+│   │   ├── namespace.yaml
 │   │   └── service.yaml
 │   ├── reader.py
 │   └── writer.py
@@ -15,13 +17,21 @@
 │   ├── Dockerfile
 │   ├── manifests
 │   │   ├── deployment.yaml
+│   │   ├── namespace.yaml
 │   │   └── service.yaml
-│   └── pingpong.py
+│   ├── pingpong.py
+│   └── postgres
+│       └── manifests
+│           ├── postgres-secret.enc.yaml
+│           ├── postgres-secret.yaml
+│           ├── postgres-service.yaml
+│           └── postgres.yaml
 ├── Project
 │   ├── Dockerfile
 │   ├── manifests
 │   │   ├── deployment.yaml
 │   │   ├── ingress.yaml
+│   │   ├── namespace.yaml
 │   │   ├── persistentvolumeclaim.yaml
 │   │   ├── persistentvolume.yaml
 │   │   └── service.yaml
@@ -29,11 +39,17 @@
 ├── README.md
 ├── structure.txt
 └── todo-backend
+    ├── age-key.txt
     ├── Dockerfile
     ├── manifests
     │   ├── deployment.yaml
     │   ├── ingress.yaml
+    │   ├── namespace.yaml
+    │   ├── postgres-secret.enc.yaml
+    │   ├── postgres-secret.yaml
+    │   ├── postgres-service.yaml
+    │   ├── postgres-statefulset.yaml
     │   └── service.yaml
     └── todo-backend.py
 
-10 directories, 27 files
+12 directories, 41 files

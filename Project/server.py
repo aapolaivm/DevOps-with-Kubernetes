@@ -1,9 +1,9 @@
-from flask import Flask, send_file, make_response, request, jsonify
 import os
-import time
 import threading
 import urllib.request
 import json
+import time
+from flask import Flask, jsonify, request, send_file, make_response
 
 app = Flask(__name__)
 
@@ -43,11 +43,13 @@ def home():
                 try {
                     let response = await fetch("/todo-app/todos");
                     let todos = await response.json();
+                    console.log("Fetched todos:", todos);  // Log the fetched todos
                     let todoList = document.getElementById("todo-list");
                     todoList.innerHTML = "";
                     todos.forEach(todo => {
+                        console.log(todo); // Log each todo item to check its structure
                         let li = document.createElement("li");
-                        li.textContent = todo;
+                        li.textContent = todo.todo;  // Access the todo property
                         todoList.appendChild(li);
                     });
                 } catch (error) {
@@ -98,8 +100,10 @@ def todos():
         try:
             with urllib.request.urlopen(TODO_BACKEND_URL) as response:
                 data = json.loads(response.read().decode())
+                print("Received data from todo-backend:", data, flush=True)  # Log the received data
                 return jsonify(data)
         except Exception as e:
+            print(f"Error fetching todos: {e}", flush=True)
             return jsonify({"status": "error", "message": str(e)}), 500
     elif request.method == 'POST':
         todo = request.json.get('todo')
@@ -108,10 +112,14 @@ def todos():
         try:
             with urllib.request.urlopen(req) as response:
                 if response.status == 201:
+                    print("Successfully created todo", flush=True)
                     return jsonify({"status": "success"}), 201
                 else:
-                    return jsonify({"status": "error", "message": response.read().decode()}), response.status
+                    error_message = response.read().decode()
+                    print(f"Error creating todo: {error_message}", flush=True)
+                    return jsonify({"status": "error", "message": error_message}), response.status
         except Exception as e:
+            print(f"Error creating todo: {e}", flush=True)
             return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == '__main__':
@@ -123,5 +131,5 @@ if __name__ == '__main__':
     
     # Getting port value
     port = int(os.getenv('PORT', 8080))
-    print(f"Server started on port {port}")
+    print(f"Server started on port {port}", flush=True)
     app.run(host='0.0.0.0', port=port)

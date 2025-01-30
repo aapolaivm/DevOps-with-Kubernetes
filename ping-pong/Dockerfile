@@ -8,7 +8,7 @@ WORKDIR /app
 COPY pingpong.py /app
 
 # Install dependencies
-RUN pip install flask
+RUN pip install flask psycopg2-binary
 
 # Expose port
 EXPOSE 3001
