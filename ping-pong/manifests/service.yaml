@@ -6,7 +6,8 @@ metadata:
 spec:
   selector:
     app: pingpong
+  type: LoadBalancer
   ports:
-  - port: 3001
+  - port: 80
     targetPort: 3001
     protocol: TCP
