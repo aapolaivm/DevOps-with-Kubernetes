@@ -18,14 +18,12 @@
 │   ├── manifests
 │   │   ├── deployment.yaml
 │   │   ├── namespace.yaml
+│   │   ├── pingpong-secret.enc.yaml
+│   │   ├── pingpong-secret.yaml
+│   │   ├── postgres-service.yaml
+│   │   ├── postgres-statefulset.yaml
 │   │   └── service.yaml
-│   ├── pingpong.py
-│   └── postgres
-│       └── manifests
-│           ├── postgres-secret.enc.yaml
-│           ├── postgres-secret.yaml
-│           ├── postgres-service.yaml
-│           └── postgres.yaml
+│   └── pingpong.py
 ├── Project
 │   ├── Dockerfile
 │   ├── manifests
@@ -38,18 +36,26 @@
 │   └── server.py
 ├── README.md
 ├── structure.txt
-└── todo-backend
-    ├── age-key.txt
+├── todo-backend
+│   ├── age-key.txt
+│   ├── Dockerfile
+│   ├── manifests
+│   │   ├── deployment.yaml
+│   │   ├── ingress.yaml
+│   │   ├── namespace.yaml
+│   │   ├── postgres-secret.enc.yaml
+│   │   ├── postgres-secret.yaml
+│   │   ├── postgres-service.yaml
+│   │   ├── postgres-statefulset.yaml
+│   │   ├── promtail-config.yaml
+│   │   ├── promtail-daemon.yaml
+│   │   ├── promtail.yaml
+│   │   └── service.yaml
+│   └── todo-backend.py
+└── todo-cronjob
+    ├── create_todo.py
     ├── Dockerfile
-    ├── manifests
-    │   ├── deployment.yaml
-    │   ├── ingress.yaml
-    │   ├── namespace.yaml
-    │   ├── postgres-secret.enc.yaml
-    │   ├── postgres-secret.yaml
-    │   ├── postgres-service.yaml
-    │   ├── postgres-statefulset.yaml
-    │   └── service.yaml
-    └── todo-backend.py
+    └── manifests
+        └── cronjob.yaml
 
-12 directories, 41 files
+12 directories, 47 files

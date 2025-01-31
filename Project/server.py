@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 IMAGE_URL = "https://picsum.photos/1200"
 IMAGE_PATH = "/app/static/image.jpg"
-TODO_BACKEND_URL = "http://todo-backend-svc:5000/todos"
+TODO_BACKEND_URL = "http://todo-backend-svc/todos"
 
 def download_image():
     while True:
