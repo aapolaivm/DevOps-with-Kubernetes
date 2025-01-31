@@ -13,7 +13,7 @@ DBaaS (Database as a Service)
 Pros:
 
 >>>>>>> 9376e773ecca52a8b9442f81bb0ff28517c38712
-Easy to Set Up: Just sign up and start using it. No need to configure servers or networks.
+Easy to Set Up: Just sign up and start using it. No need to configure servers or networks. 
 Automatic Backups: They do the backups for you. You don't have to worry about it.
 Less Maintenance: The service handles updates, patches, and scaling. You just use it.
 Support: If something goes wrong, there's usually customer support to help.
