@@ -18,6 +18,13 @@ hash_value = ""
 timestamp_data = ""
 pingpong_count = 0
 
+# Read the content of the information.txt file
+try:
+    with open('/app/config/information.txt', 'r') as file:
+        file_content = file.read()
+except Exception as e:
+    logging.error(f"Failed to read information.txt: {e}")
+
 def calculate_hash():
     global hash_value, timestamp_data
     while True:
