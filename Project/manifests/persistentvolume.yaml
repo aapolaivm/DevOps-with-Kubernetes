@@ -4,14 +4,15 @@ metadata:
   name: image-cache-pv
 spec:
   capacity:
-    storage: 1Gi
+    storage: 10Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: manual
-  hostPath: 
-    path: "/mnt/data/image-cache"
+  gcePersistentDisk:
+    pdName: image-cache-disk
+    fsType: ext4
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -19,4 +20,4 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - k3d-k3s-default-agent-0
+                - gke-dwk-cluster-default-pool-46c50ec3-1372

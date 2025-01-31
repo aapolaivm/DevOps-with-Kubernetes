@@ -11,6 +11,9 @@ IMAGE_URL = "https://picsum.photos/1200"
 IMAGE_PATH = "/app/static/image.jpg"
 TODO_BACKEND_URL = "http://todo-backend-svc/todos"
 
+# Ensure the static directory exists
+os.makedirs(os.path.dirname(IMAGE_PATH), exist_ok=True)
+
 def download_image():
     while True:
         try:
@@ -123,9 +126,6 @@ def todos():
             return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == '__main__':
-    # Create the static directory if it doesn't exist
-    os.makedirs(os.path.dirname(IMAGE_PATH), exist_ok=True)
-    
     # Start the image download thread
     threading.Thread(target=download_image, daemon=True).start()
     
