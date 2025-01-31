@@ -1,0 +1,14 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 9096
+
+clients:
+  - url: http://loki:3100/api/prom/push  # Loki's endpoint
+
+scrape_configs:
+  - job_name: 'flask-logs'
+    static_configs:
+      - targets: ['localhost']
+        labels:
+          job: flask
+          __path__: /var/log/your_flask_app/*.log  # Path to your log files

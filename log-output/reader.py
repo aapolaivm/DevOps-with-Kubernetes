@@ -1,34 +1,34 @@
+from flask import Flask, jsonify, request, render_template_string
 import os
-from flask import Flask, jsonify, render_template_string, request
 import threading
 import time
-import urllib.request
 import json
-import hashlib
+import urllib.request
 import logging
 
 app = Flask(__name__)
 
-hash_value = None
-timestamp_data = None
+# Environment variables
+message = os.getenv("MESSAGE", "No message")
+pingpong_service_url = "http://pingpong-svc/pingpong"
+
+# Global variables
+file_content = ""
+hash_value = ""
+timestamp_data = ""
 pingpong_count = 0
 
 def calculate_hash():
     global hash_value, timestamp_data
     while True:
-        time.sleep(5)
         if timestamp_data:
-            try:
-                logging.debug(f"Generated timestamp: {timestamp_data}")
-                hash_value = hashlib.sha256(timestamp_data.encode('utf-8')).hexdigest()
-                logging.debug(f"Hash: {hash_value}")
-            except Exception as e:
-                logging.error(f"Failed to generate hash: {e}")
+            hash_value = hash(timestamp_data)
+        time.sleep(5)
 
 def fetch_pingpong_count():
     global pingpong_count
     try:
-        with urllib.request.urlopen('http://pingpong-svc.devops-exercises.svc.cluster.local:3001/pingpong') as response:
+        with urllib.request.urlopen(pingpong_service_url) as response:
             data = json.loads(response.read().decode())
             pingpong_count = data.get('pingpong_count', 0)
             logging.debug(f"Pingpong count: {pingpong_count}")
@@ -48,12 +48,8 @@ def receive_timestamp():
 @app.route('/')
 def get_status():
     """Endpoint to return the current hash value and pingpong count in HTML format"""
-    # Call fetch_pingpong_count in the background to avoid blocking the request
-    threading.Thread(target=fetch_pingpong_count, daemon=True).start()
+    fetch_pingpong_count()  # Fetch the pingpong count before rendering the HTML
     if hash_value and timestamp_data:
-        with open('/app/config/information.txt', 'r') as file:
-            file_content = file.read().strip()
-        message = os.getenv('MESSAGE', 'No message set')
         html_content = f"""
         <html>
             <body>
@@ -66,7 +62,7 @@ def get_status():
         """
         return render_template_string(html_content), 200
     else:
-        return "Hash not calculated yet", 404
+        return "Log output service is running", 200
 
 if __name__ == "__main__":
     # Start the hash calculation in a separate thread

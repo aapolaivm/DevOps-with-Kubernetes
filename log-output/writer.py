@@ -2,19 +2,27 @@ import time
 from datetime import datetime
 import urllib.request
 import json
+import os
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Environment variables
+service_url = os.getenv("LOG_OUTPUT_SERVICE_URL", "http://log-output-svc.devops-exercises.svc.cluster.local/timestamp")
 
 def send_timestamp():
     timestamp = datetime.now().isoformat()
     data = json.dumps({"timestamp": timestamp}).encode('utf-8')
-    req = urllib.request.Request('http://log-output-svc:3000/timestamp', data=data, headers={'Content-Type': 'application/json'})
+    req = urllib.request.Request(service_url, data=data, headers={'Content-Type': 'application/json'})
     try:
         with urllib.request.urlopen(req) as response:
             if response.status == 200:
-                print(f"Sent timestamp: {timestamp}", flush=True)  # Debugging line
+                logging.info(f"Sent timestamp: {timestamp}")
             else:
-                print(f"Failed to send timestamp: {response.status}", flush=True)
+                logging.error(f"Failed to send timestamp: {response.status}")
     except Exception as e:
-        print(f"Error sending timestamp: {e}", flush=True)
+        logging.error(f"Error sending timestamp: {e}")
 
 if __name__ == "__main__":
     while True:

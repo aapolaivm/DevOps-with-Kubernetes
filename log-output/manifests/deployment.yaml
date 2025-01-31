@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: writer
-          image: aapolaivm/log-output:v5.0
+          image: aapolaivm/log-output:v6.7
           command: [ "python", "/app/writer.py" ]
           resources:
             requests:
@@ -35,7 +35,7 @@ spec:
                   name: log-output-configmap
                   key: MESSAGE
         - name: reader
-          image: aapolaivm/log-output:v5.0
+          image: aapolaivm/log-output:v6.7
           command: [ "python", "/app/reader.py" ]
           ports:
             - containerPort: 3000

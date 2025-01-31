@@ -1,10 +1,10 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect
 import psycopg2
 import os
 
 app = Flask(__name__)
 
-# Initialize database connection
+# Database connection
 conn = psycopg2.connect(
     dbname=os.getenv("POSTGRES_DB"),
     user=os.getenv("POSTGRES_USER"),
@@ -32,6 +32,11 @@ else:
     counter = 0
     cur.execute("INSERT INTO counter (count) VALUES (%s)", (counter,))
     conn.commit()
+
+@app.route('/')
+def health_check():
+    # This is to ensure a successful response is given at `/`
+    return jsonify({"status": "Ping-pong service is healthy!"})
 
 @app.route('/pingpong')
 def get_pingpong():
