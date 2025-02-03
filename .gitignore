@@ -4,4 +4,5 @@ ping-pong/manifests/pingpong-secret.yaml
 
 # Ignore keys
 todo-backend/age-key.txtProject/github-actions-key.json
+key.txt
 private-key.json
