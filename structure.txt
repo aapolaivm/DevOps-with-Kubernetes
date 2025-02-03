@@ -1,5 +1,6 @@
 .
 ├── builds.txt
+├── kustomization.yaml
 ├── log-output
 │   ├── Dockerfile
 │   ├── manifests
@@ -24,6 +25,7 @@
 │   │   ├── postgres-statefulset.yaml
 │   │   └── service.yaml
 │   └── pingpong.py
+├── private-key.json
 ├── Project
 │   ├── Dockerfile
 │   ├── manifests
@@ -37,7 +39,6 @@
 ├── README.md
 ├── structure.txt
 ├── todo-backend
-│   ├── age-key.txt
 │   ├── Dockerfile
 │   ├── manifests
 │   │   ├── deployment.yaml
@@ -58,4 +59,4 @@
     └── manifests
         └── cronjob.yaml
 
-12 directories, 47 files
+12 directories, 48 files

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: todo-backend
-        image: aapolaivm/todo-backend:v1.9
+        image: PROJECT/IMAGE
         resources:
           requests:
             memory: "32Mi"
