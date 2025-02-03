@@ -10,4 +10,3 @@ resources:
 images:
   - name: PROJECT/IMAGE
     newName: aapolaivm/todo-app
-    newTag: $BRANCH-$GITHUB_SHA

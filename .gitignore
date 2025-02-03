@@ -2,5 +2,6 @@
 todo-backend/manifests/postgres-secret.yaml
 ping-pong/manifests/pingpong-secret.yaml
 
-# Ignore age key
+# Ignore keys
 todo-backend/age-key.txtProject/github-actions-key.json
+private-key.json
