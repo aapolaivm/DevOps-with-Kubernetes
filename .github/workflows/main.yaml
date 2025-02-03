@@ -21,14 +21,12 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2
 
-    - uses: google-github-actions/auth@v2
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
       with:
         credentials_json: ${{ secrets.GKE_SA_KEY }}
-
-    - name: Extract PROJECT_ID from GKE_SA_KEY
-      run: echo "PROJECT_ID=$(echo '${{ secrets.GKE_SA_KEY }}' | jq -r '.project_id')" >> $GITHUB_ENV
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
@@ -37,6 +35,10 @@ jobs:
       run: gcloud info 
 
     - run: gcloud --quiet auth configure-docker
+
+    - name: Extract Project ID
+      id: extract-project-id
+      run: echo "PROJECT_ID=$(echo '${{ secrets.GKE_SA_KEY }}' | jq -r .project_id)" >> $GITHUB_ENV
 
     - name: 'Get GKE credentials'
       uses: 'google-github-actions/get-gke-credentials@v2'
@@ -61,8 +63,6 @@ jobs:
     - name: Decrypt the postgres secret
       run: sops -d todo-backend/manifests/postgres-secret.enc.yaml > todo-backend/manifests/postgres-secret.yaml
 
-
-
     # Build and publish todo-app image
     - name: Build todo-app
       run: docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_APP:$BRANCH-$GITHUB_SHA" -f Project/Dockerfile .
@@ -70,7 +70,6 @@ jobs:
     - name: Publish todo-app image
       run: docker push "gcr.io/$PROJECT_ID/$IMAGE_APP:$BRANCH-$GITHUB_SHA"
 
-   
     # Build and publish todo-backend image
     - name: Build todo-backend
       run: docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_BACKEND:$BRANCH-$GITHUB_SHA" -f todo-backend/Dockerfile .
@@ -84,7 +83,7 @@ jobs:
     - name: Deploy todo-app
       run: |
         cd Project
-        kustomize edit set image gcr.io/$PROJECT_ID/$IMAGE_APP=$IMAGE_APP:$BRANCH-$GITHUB_SHA
+        kustomize edit set image $IMAGE_APP=gcr.io/$PROJECT_ID/$IMAGE_APP:$BRANCH-$GITHUB_SHA
         kustomize build . | kubectl apply -f -
         kubectl rollout status deployment $SERVICE_APP
         kubectl get services -o wide
@@ -92,7 +91,7 @@ jobs:
     - name: Deploy todo-backend
       run: |
         cd todo-backend
-        kustomize edit set image gcr.io/$PROJECT_ID/$IMAGE_BACKEND=$IMAGE_BACKEND:$BRANCH-$GITHUB_SHA
+        kustomize edit set image $IMAGE_BACKEND=gcr.io/$PROJECT_ID/$IMAGE_BACKEND:$BRANCH-$GITHUB_SHA
         kustomize build . | kubectl apply -f -
         kubectl rollout status deployment $SERVICE_BACKEND
         kubectl get services -o wide
