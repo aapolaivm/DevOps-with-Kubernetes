@@ -53,9 +53,10 @@ jobs:
 
     - name: Set up AGE private key for decryption
       run: |
-        echo "${{ secrets.AGE_PRIVATE_KEY }}" > /home/runner/.config/sops/age/keys.txt
+        mkdir -p /home/runner/.config/sops/age  # Create the necessary directory
+        echo "${{ secrets.AGE_PRIVATE_KEY }}" > /home/runner/.config/sops/age/keys.txt  # Store the secret
       env:
-        AGE_PRIVATE_KEY: ${{ secrets.AGE_PRIVATE_KEY }}  # Store your AGE private key in GitHub Secrets
+        AGE_PRIVATE_KEY: ${{ secrets.AGE_PRIVATE_KEY }}  # Reference the secret stored in GitHub Secrets
 
     - name: Decrypt postgres secret
       run: |
