@@ -45,6 +45,24 @@ jobs:
         project_id: '${{ env.PROJECT_ID }}'
         location: '${{ env.GKE_ZONE }}'
 
+    - name: Install SOPS
+      run: |
+        curl -Lo sops https://github.com/mozilla/sops/releases/download/v3.7.3/sops-v3.7.3.linux.amd64
+        chmod +x sops
+        sudo mv sops /usr/local/bin/sops
+
+    - name: Set up AGE private key for decryption
+      run: |
+        echo "${{ secrets.AGE_PRIVATE_KEY }}" > /home/runner/.config/sops/age/keys.txt
+      env:
+        AGE_PRIVATE_KEY: ${{ secrets.AGE_PRIVATE_KEY }}  # Store your AGE private key in GitHub Secrets
+
+    - name: Decrypt postgres secret
+      run: |
+        sops -d todo-backend/manifests/postgres-secret.enc.yaml > todo-backend/manifests/postgres-secret.yaml
+
+
+
     # Build and publish todo-app image
     - name: Build todo-app
       run: docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_APP:$BRANCH-$GITHUB_SHA" -f Project/Dockerfile .
@@ -52,16 +70,7 @@ jobs:
     - name: Publish todo-app image
       run: docker push "gcr.io/$PROJECT_ID/$IMAGE_APP:$BRANCH-$GITHUB_SHA"
 
-    - name: Install SOPS
-      run: |
-        curl -Lo sops https://github.com/mozilla/sops/releases/download/v3.7.3/sops-v3.7.3.linux.amd64
-        chmod +x sops
-        sudo mv sops /usr/local/bin/sops
-
-    - name: Decrypt postgres secret
-      run: |
-        sops -d todo-backend/manifests/postgres-secret.enc.yaml > todo-backend/manifests/postgres-secret.yaml
-
+   
     # Build and publish todo-backend image
     - name: Build todo-backend
       run: docker build --tag "gcr.io/$PROJECT_ID/$IMAGE_BACKEND:$BRANCH-$GITHUB_SHA" -f todo-backend/Dockerfile .
