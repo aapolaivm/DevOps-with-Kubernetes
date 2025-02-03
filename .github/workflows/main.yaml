@@ -6,7 +6,6 @@ on:
       - main
 
 env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: dwk-cluster
   GKE_ZONE: europe-north1-b
   IMAGE: todo-app
@@ -25,6 +24,9 @@ jobs:
     - uses: google-github-actions/auth@v2
       with:
         credentials_json: ${{ secrets.GKE_SA_KEY }}
+
+    - name: Extract PROJECT_ID from GKE_SA_KEY
+      run: echo "PROJECT_ID=$(echo '${{ secrets.GKE_SA_KEY }}' | jq -r '.project_id')" >> $GITHUB_ENV
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
