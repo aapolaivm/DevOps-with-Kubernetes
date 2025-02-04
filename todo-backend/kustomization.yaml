@@ -9,5 +9,5 @@ resources:
   - manifests/postgres-service.yaml
 
 images:
-  - name: PROJECT/IMAGE
+  - name: TODO-BACKEND/IMAGE
     newName: aapolaivm/todo-backend
