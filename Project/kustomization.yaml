@@ -11,4 +11,5 @@ resources:
 
 images:
   - name: PROJECT/IMAGE
-    newName: aapolaivm/todo-app
+    newName: gcr.io/${PROJECT_ID}/todo-app
+    newTag: ${GITHUB_SHA}
