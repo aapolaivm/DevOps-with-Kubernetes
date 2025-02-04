@@ -5,7 +5,7 @@ resources:
   - manifests/service.yaml
   - manifests/ingress.yaml
   - manifests/namespace.yaml
-  - manifests/persistentvolumec.yaml
+  - manifests/persistentvolume.yaml
   - manifests/persistentvolumeclaim.yaml
 
 
