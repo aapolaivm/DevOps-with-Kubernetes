@@ -86,7 +86,7 @@ jobs:
         cd Project
         kustomize edit set image gcr.io/$PROJECT_ID/$IMAGE_APP=$IMAGE_APP:$BRANCH-$GITHUB_SHA
         kustomize build . | kubectl apply -f -
-        kubectl rollout status deployment $SERVICE_APP
+        kubectl rollout status deployment $SERVICE_APP -n project-namespace
         kubectl get services -o wide
 
     - name: Deploy todo-backend
@@ -94,5 +94,5 @@ jobs:
         cd todo-backend
         kustomize edit set image gcr.io/$PROJECT_ID/$IMAGE_BACKEND=$IMAGE_BACKEND:$BRANCH-$GITHUB_SHA
         kustomize build . | kubectl apply -f -
-        kubectl rollout status deployment $SERVICE_BACKEND
+        kubectl rollout status deployment $SERVICE_BACKEND -n project-namespace
         kubectl get services -o wide
