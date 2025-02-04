@@ -13,11 +13,3 @@ spec:
   gcePersistentDisk:
     pdName: image-cache-disk
     fsType: ext4
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - gke-dwk-cluster-default-pool-46c50ec3-1372
