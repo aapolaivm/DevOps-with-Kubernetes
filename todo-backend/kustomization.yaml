@@ -9,6 +9,6 @@ resources:
   - manifests/postgres-service.yaml
 
 images:
-  - name: PROJECT/IMAGE
-    newName: gcr.io/dwk-gke-449420/todo-backend
-    newTag: $BRANCH-$GITHUB_SHA
+  - name: TODO-BACKEND/IMAGE
+    newName: aapolaivm/todo-backend  
+

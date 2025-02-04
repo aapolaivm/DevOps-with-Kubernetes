@@ -73,21 +73,22 @@ jobs:
     - name: Publish todo-backend image
       run: docker push "gcr.io/${{ env.PROJECT_ID }}/todo-backend:${{ github.sha }}"
 
+
     - name: Set up Kustomize
       uses: imranismail/setup-kustomize@v2.1.0
 
     - name: Deploy todo-app
       run: |
         cd Project
-        kustomize edit set image gcr.io/${{ env.PROJECT_ID }}/todo-app:${{ github.sha }}
+        kustomize edit set image gcr.io/$PROJECT_ID/$IMAGE_APP=$IMAGE_APP:$BRANCH-$GITHUB_SHA
         kustomize build . | kubectl apply -f -
-        kubectl rollout status deployment ${{ env.SERVICE_APP }} -n project-namespace
+        kubectl rollout status deployment $SERVICE_APP -n project-namespace
         kubectl get services -o wide
 
     - name: Deploy todo-backend
       run: |
         cd todo-backend
-        kustomize edit set image gcr.io/${{ env.PROJECT_ID }}/todo-backend:${{ github.sha }}
+        kustomize edit set image gcr.io/$PROJECT_ID/$IMAGE_BACKEND=$IMAGE_BACKEND:$BRANCH-$GITHUB_SHA
         kustomize build . | kubectl apply -f -
-        kubectl rollout status deployment ${{ env.SERVICE_BACKEND }} -n project-namespace
+        kubectl rollout status deployment $SERVICE_BACKEND -n project-namespace
         kubectl get services -o wide

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: todo-backend
-        image: PROJECT/IMAGE
+        image: TODO-BACKEND/IMAGE
         resources:
           requests:
             memory: "32Mi"
